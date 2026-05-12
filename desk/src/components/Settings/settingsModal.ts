@@ -17,6 +17,10 @@ import AssignmentRules from "./Assignment Rules/AssignmentRules.vue";
 import Settings from "~icons/lucide/settings-2";
 import { FieldDependencyIcon, PhoneIcon } from "@/components/icons";
 import TelephonyPage from "./Telephony/TelephonyPage.vue";
+import SlackSettings from "./Slack/SlackSettings.vue";
+import LucideSlack from "~icons/lucide/slack";
+import GoogleSSOSettings from "./GoogleSSO/GoogleSSOSettings.vue";
+import LucideKeyRound from "~icons/lucide/key-round";
 import { EmailNotifications } from "./EmailNotifications";
 import { __ } from "@/translation";
 import SavedReplies from "./SavedReplies/SavedReplies.vue";
@@ -130,6 +134,18 @@ export const tabs = computed(() => {
           label: __("Telephony"),
           icon: markRaw(PhoneIcon),
           component: markRaw(TelephonyPage),
+        },
+        {
+          label: __("Slack"),
+          icon: markRaw(LucideSlack),
+          component: markRaw(SlackSettings),
+          condition: () => auth.isAdmin || auth.isManager,
+        },
+        {
+          label: __("Google SSO"),
+          icon: markRaw(LucideKeyRound),
+          component: markRaw(GoogleSSOSettings),
+          condition: () => auth.isAdmin || auth.isManager,
         },
       ],
     },

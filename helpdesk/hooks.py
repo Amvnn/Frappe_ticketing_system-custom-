@@ -70,6 +70,9 @@ doc_events = {
         "on_trash": "helpdesk.extends.assignment_rule.on_assignment_rule_trash",
         "validate": "helpdesk.extends.assignment_rule.on_assignment_rule_validate",
     },
+    "HD Ticket": {
+        "after_insert": "helpdesk.api.slack.enqueue_ticket_notification",
+    },
 }
 
 has_permission = {
@@ -105,3 +108,5 @@ setup_wizard_complete = "helpdesk.setup.setup_wizard.setup_complete"
 
 before_tests = "helpdesk.test_utils.before_tests"
 auth_hooks = ["helpdesk.auth.authenticate"]
+
+login_page_fields = "helpdesk.api.google_sso.get_login_page_context"

@@ -1,0 +1,4 @@
+# Pyrefly config for Frappe Helpdesk
+# frappe, requests, and other dependencies run inside Docker/bench,
+# not the local Python interpreter. Suppress all missing-import errors.
+ignore-missing-imports = true

@@ -62,6 +62,8 @@ ALLOWED_PATHS = [
     "/api/method/frappe.core.api.user_invitation.cancel_invitation",
     "/api/method/frappe.core.api.user_invitation.invite_by_email",
     "/api/method/frappe.desk.reportview.export_query",
+    "/api/method/helpdesk.api.google_sso.initiate_google_oauth",
+    "/api/method/helpdesk.api.google_sso.handle_google_callback",
 ]
 
 WILDCARD_PATHS = [

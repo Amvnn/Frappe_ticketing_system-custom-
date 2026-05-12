@@ -22,12 +22,21 @@ class HDSettings(Document):
         self.validate_auto_close_days()
         self.validate_email_contents()
         self.validate_send_feedback_when_ticket_closed()
+        self.validate_slack_settings()
 
     def validate_auto_close_days(self):
         if self.auto_close_tickets and self.auto_close_after_days <= 0:
             frappe.throw(
                 _("Day count for auto closing tickets cannot be negative or zero")
             )
+
+    def validate_slack_settings(self):
+        if not self.enable_slack_integration:
+            return
+        if not self.slack_bot_token:
+            frappe.throw(_("Slack Bot Token is required when Slack Integration is enabled"))
+        if not self.slack_signing_secret:
+            frappe.throw(_("Slack Signing Secret is required when Slack Integration is enabled"))
 
     def validate_send_feedback_when_ticket_closed(self):
         if not self.enable_email_ticket_feedback:

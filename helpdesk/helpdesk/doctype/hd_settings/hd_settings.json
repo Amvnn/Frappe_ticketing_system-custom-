@@ -77,7 +77,20 @@
   "reply_email_to_agent_content",
   "reply_from_agent_section",
   "enable_reply_email_via_agent",
-  "reply_via_agent_email_content"
+  "reply_via_agent_email_content",
+  "integrations_tab",
+  "slack_section",
+  "enable_slack_integration",
+  "column_break_slack",
+  "slack_bot_token",
+  "slack_signing_secret",
+  "slack_notification_channel",
+  "google_sso_section",
+  "enable_google_sso",
+  "column_break_google",
+  "google_client_id",
+  "google_client_secret",
+  "google_sso_allowed_domains"
  ],
  "fields": [
   {
@@ -504,6 +517,72 @@
    "fieldname": "enable_outside_hours_banner",
    "fieldtype": "Check",
    "label": "Apply outside working hours"
+  },
+  {
+   "fieldname": "integrations_tab",
+   "fieldtype": "Tab Break",
+   "label": "Integrations"
+  },
+  {
+   "fieldname": "slack_section",
+   "fieldtype": "Section Break",
+   "label": "Slack Integration"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_slack_integration",
+   "fieldtype": "Check",
+   "label": "Enable Slack Integration"
+  },
+  {
+   "fieldname": "column_break_slack",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "slack_bot_token",
+   "fieldtype": "Password",
+   "label": "Slack Bot Token"
+  },
+  {
+   "fieldname": "slack_signing_secret",
+   "fieldtype": "Password",
+   "label": "Slack Signing Secret"
+  },
+  {
+   "fieldname": "slack_notification_channel",
+   "fieldtype": "Data",
+   "label": "Slack Notification Channel"
+  },
+  {
+   "fieldname": "google_sso_section",
+   "fieldtype": "Section Break",
+   "label": "Google SSO"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_google_sso",
+   "fieldtype": "Check",
+   "label": "Enable Google SSO"
+  },
+  {
+   "fieldname": "column_break_google",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "google_client_id",
+   "fieldtype": "Data",
+   "label": "Google Client ID"
+  },
+  {
+   "fieldname": "google_client_secret",
+   "fieldtype": "Password",
+   "label": "Google Client Secret"
+  },
+  {
+   "fieldname": "google_sso_allowed_domains",
+   "fieldtype": "Table",
+   "label": "Google SSO Allowed Domains",
+   "options": "HD Google SSO Allowed Domain"
   }
  ],
  "grid_page_length": 50,

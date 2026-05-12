@@ -28,3 +28,8 @@ index_html_path = "./helpdesk/www/helpdesk/index.html"
 Homepage = "https://frappe.io/helpdesk"
 Repository = "https://github.com/frappe/helpdesk.git"
 "Bug Reports" = "https://github.com/frappe/helpdesk/issues"
+
+[tool.pyrefly]
+# frappe and requests run inside a bench/Docker environment, not the local Python interpreter.
+# Suppress missing-import errors for all third-party packages not installed locally.
+ignore-missing-imports = true
