@@ -23,7 +23,7 @@ sed -i '/redis/d' ./Procfile
 sed -i '/watch/d' ./Procfile
 
 bench get-app telephony
-bench get-app helpdesk --branch devops-ticketing --resolve-deps https://github.com/Amvnn/Frappe_ticketing_system-custom-.git
+bench get-app https://github.com/Amvnn/Frappe_ticketing_system-custom-.git --branch devops-ticketing
 
 bench new-site helpdesk.localhost \
 --force \
