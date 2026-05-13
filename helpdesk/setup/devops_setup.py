@@ -428,3 +428,45 @@ def run():
     print("  5. Slack webhook → helpdesk UI > Settings > Integrations > Slack")
     print("  See CREDENTIALS.md for step-by-step instructions.")
     print("=" * 60 + "\n")
+
+
+# ---------------------------------------------------------------------------
+# Demo data cleanup
+# ---------------------------------------------------------------------------
+
+def clean_demo_data():
+    """Delete all demo/seeded tickets, contacts, and customers installed by helpdesk.
+    Safe to run — only deletes records created before any real usage.
+    """
+    print("\n" + "=" * 60)
+    print("  Cleaning demo data...")
+    print("=" * 60)
+
+    # Delete all HD Tickets (demo data seeded on install)
+    tickets = frappe.get_all("HD Ticket", pluck="name")
+    if tickets:
+        for t in tickets:
+            frappe.delete_doc("HD Ticket", t, ignore_permissions=True, force=True)
+        frappe.db.commit()
+        print(f"  + Deleted {len(tickets)} demo tickets")
+    else:
+        print("  ✓ No tickets to delete")
+
+    # Delete all HD Customers
+    customers = frappe.get_all("HD Customer", pluck="name")
+    if customers:
+        for c in customers:
+            frappe.delete_doc("HD Customer", c, ignore_permissions=True, force=True)
+        frappe.db.commit()
+        print(f"  + Deleted {len(customers)} demo customers")
+
+    # Delete contacts that came from demo tickets (non-system contacts)
+    contacts = frappe.get_all("Contact", pluck="name")
+    if contacts:
+        for c in contacts:
+            frappe.delete_doc("Contact", c, ignore_permissions=True, force=True)
+        frappe.db.commit()
+        print(f"  + Deleted {len(contacts)} demo contacts")
+
+    print("  ✓ Demo data cleaned. System is ready for real use.")
+    print("=" * 60 + "\n")
