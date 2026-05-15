@@ -37,6 +37,7 @@ bench --site helpdesk.localhost set-config developer_mode 1
 bench --site helpdesk.localhost set-config mute_emails 1
 bench --site helpdesk.localhost set-config server_script_enabled 1
 bench --site helpdesk.localhost set-config allow_tests true
+bench --site helpdesk.localhost set-config host_name http://localhost:8000
 bench --site helpdesk.localhost clear-cache
 bench use helpdesk.localhost
 

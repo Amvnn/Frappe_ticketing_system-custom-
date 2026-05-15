@@ -115,7 +115,9 @@
 
 {% macro logo_section(title=null) %}
 <div class="page-card-head">
+	{% if logo and not logo.startswith('{{') %}
 	<img class="app-logo" src="{{ logo }}">
+	{% endif %}
 	{% if title %}
 	<h4>{{ _(title) }}</h4>
 	{% else %}

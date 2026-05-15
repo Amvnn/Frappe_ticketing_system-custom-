@@ -276,10 +276,17 @@ def _provision_user(
                 "last_name": last_name or "",
                 "user_image": picture or "",
                 "send_welcome_email": 0,
+                "user_type": "Website User",
                 "roles": [{"role": "Customer"}],
             }
         )
-        user.insert(ignore_permissions=True)
+        user.flags.ignore_permissions = True
+        user.flags.ignore_mandatory = True
+        user.flags.no_welcome_mail = True
+        # Bypass disable_signup restriction — SSO users are always allowed
+        frappe.flags.in_import = True
+        user.insert()
+        frappe.flags.in_import = False
         frappe.db.commit()
     except Exception:
         frappe.log_error(
