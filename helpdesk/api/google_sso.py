@@ -387,3 +387,15 @@ def get_login_page_context() -> dict:
         return {"show_google_sso": bool(settings.enable_google_sso)}
     except Exception:
         return {"show_google_sso": False}
+
+
+def inject_login_context(context):
+    """Inject show_google_sso into every website page context.
+    Called via the website_context hook — this is the correct Frappe v15 hook
+    for injecting context into Jinja-rendered pages including /login.
+    """
+    try:
+        settings = frappe.get_cached_doc("HD Settings")
+        context["show_google_sso"] = bool(settings.enable_google_sso)
+    except Exception:
+        context["show_google_sso"] = False
