@@ -219,7 +219,9 @@ def initiate_google_oauth() -> dict:
         return {"error": str(exc)}
 
     state = secrets.token_urlsafe(32)
-    frappe.session.data["google_sso_state"] = state
+    # Store state in Redis cache (TTL 10 minutes) — survives the OAuth redirect
+    # frappe.session.data is not reliable for guest sessions across redirects
+    frappe.cache.set_value(f"google_sso_state:{state}", "1", expires_in_sec=600)
 
     redirect_uri = _get_redirect_uri()
 
@@ -308,11 +310,13 @@ def handle_google_callback() -> None:
     helpdesk_url = frappe.utils.get_url("/helpdesk")
 
     # --- State verification (Requirement 3.2, 8.4) ---
-    stored_state = frappe.session.data.get("google_sso_state")
-    # Consume immediately regardless of outcome (Requirement 8.4)
-    frappe.session.data.pop("google_sso_state", None)
+    # Verify state against Redis cache (set during initiate_google_oauth)
+    # Consume immediately to prevent replay attacks (Requirement 8.4)
+    cache_key = f"google_sso_state:{state}"
+    stored = frappe.cache.get_value(cache_key) if state else None
+    frappe.cache.delete_value(cache_key)
 
-    if not stored_state or not state or state != stored_state:
+    if not stored or not state:
         frappe.local.response["type"] = "redirect"
         frappe.local.response["location"] = login_url + "?sso_error=invalid_state"
         return
